@@ -1,0 +1,778 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  AWS CloudFormation Sample Template LAMP_Two_Tier: Create a LAMP stack using
+  a two EC2 instances, 1 for Web server and one as a MySQL database for storage. This template demonstrates
+  using the AWS CloudFormation bootstrap scripts to install the packages and files
+  necessary to deploy the Apache web server, PHP and MySQL at instance launch time.
+  **WARNING** This template creates two Amazon EC2 instances. You will be billed for
+  the AWS resources used if you create a stack from this template.
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  DBName:
+    Default: MyDatabase
+    Description: MySQL database name
+    Type: String
+    MinLength: '1'
+    MaxLength: '64'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBUser:
+    NoEcho: 'true'
+    Description: Username for MySQL database access
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: must begin with a letter and contain only alphanumeric
+      characters.
+  DBPassword:
+    NoEcho: 'true'
+    Description: Password for MySQL database access
+    Type: String
+    MinLength: '1'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  DBRootPassword:
+    NoEcho: 'true'
+    Description: Root password for MySQL
+    Type: String
+    MinLength: '1'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: must contain only alphanumeric characters.
+  InstanceType:
+    Description: WebServer & DBServer EC2 instance type
+    Type: String
+    Default: t2.small
+    AllowedValues:
+      - t1.micro
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - m1.small
+      - m1.medium
+      - m1.large
+      - m1.xlarge
+      - m2.xlarge
+      - m2.2xlarge
+      - m2.4xlarge
+      - m3.medium
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+      - m4.10xlarge
+      - c1.medium
+      - c1.xlarge
+      - c3.large
+      - c3.xlarge
+      - c3.2xlarge
+      - c3.4xlarge
+      - c3.8xlarge
+      - c4.large
+      - c4.xlarge
+      - c4.2xlarge
+      - c4.4xlarge
+      - c4.8xlarge
+      - g2.2xlarge
+      - g2.8xlarge
+      - r3.large
+      - r3.xlarge
+      - r3.2xlarge
+      - r3.4xlarge
+      - r3.8xlarge
+      - i2.xlarge
+      - i2.2xlarge
+      - i2.4xlarge
+      - i2.8xlarge
+      - d2.xlarge
+      - d2.2xlarge
+      - d2.4xlarge
+      - d2.8xlarge
+      - hi1.4xlarge
+      - hs1.8xlarge
+      - cr1.8xlarge
+      - cc2.8xlarge
+      - cg1.4xlarge
+    ConstraintDescription: must be a valid EC2 instance type.
+  MyClientIP:
+    Description: 'The public IP address range that can be used to Access the Web Application and SSH to the EC2 instances. You can get your address using
+      checkip.amazonaws.com.'
+    Type: String
+    MinLength: '9'
+    MaxLength: '18'
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+Mappings:
+  AWSInstanceType2Arch:
+    t1.micro:
+      Arch: HVM64
+    t2.nano:
+      Arch: HVM64
+    t2.micro:
+      Arch: HVM64
+    t2.small:
+      Arch: HVM64
+    t2.medium:
+      Arch: HVM64
+    t2.large:
+      Arch: HVM64
+    m1.small:
+      Arch: HVM64
+    m1.medium:
+      Arch: HVM64
+    m1.large:
+      Arch: HVM64
+    m1.xlarge:
+      Arch: HVM64
+    m2.xlarge:
+      Arch: HVM64
+    m2.2xlarge:
+      Arch: HVM64
+    m2.4xlarge:
+      Arch: HVM64
+    m3.medium:
+      Arch: HVM64
+    m3.large:
+      Arch: HVM64
+    m3.xlarge:
+      Arch: HVM64
+    m3.2xlarge:
+      Arch: HVM64
+    m4.large:
+      Arch: HVM64
+    m4.xlarge:
+      Arch: HVM64
+    m4.2xlarge:
+      Arch: HVM64
+    m4.4xlarge:
+      Arch: HVM64
+    m4.10xlarge:
+      Arch: HVM64
+    c1.medium:
+      Arch: HVM64
+    c1.xlarge:
+      Arch: HVM64
+    c3.large:
+      Arch: HVM64
+    c3.xlarge:
+      Arch: HVM64
+    c3.2xlarge:
+      Arch: HVM64
+    c3.4xlarge:
+      Arch: HVM64
+    c3.8xlarge:
+      Arch: HVM64
+    c4.large:
+      Arch: HVM64
+    c4.xlarge:
+      Arch: HVM64
+    c4.2xlarge:
+      Arch: HVM64
+    c4.4xlarge:
+      Arch: HVM64
+    c4.8xlarge:
+      Arch: HVM64
+    g2.2xlarge:
+      Arch: HVMG2
+    g2.8xlarge:
+      Arch: HVMG2
+    r3.large:
+      Arch: HVM64
+    r3.xlarge:
+      Arch: HVM64
+    r3.2xlarge:
+      Arch: HVM64
+    r3.4xlarge:
+      Arch: HVM64
+    r3.8xlarge:
+      Arch: HVM64
+    i2.xlarge:
+      Arch: HVM64
+    i2.2xlarge:
+      Arch: HVM64
+    i2.4xlarge:
+      Arch: HVM64
+    i2.8xlarge:
+      Arch: HVM64
+    d2.xlarge:
+      Arch: HVM64
+    d2.2xlarge:
+      Arch: HVM64
+    d2.4xlarge:
+      Arch: HVM64
+    d2.8xlarge:
+      Arch: HVM64
+    hi1.4xlarge:
+      Arch: HVM64
+    hs1.8xlarge:
+      Arch: HVM64
+    cr1.8xlarge:
+      Arch: HVM64
+    cc2.8xlarge:
+      Arch: HVM64
+  AWSInstanceType2NATArch:
+    t1.micro:
+      Arch: NATHVM64
+    t2.nano:
+      Arch: NATHVM64
+    t2.micro:
+      Arch: NATHVM64
+    t2.small:
+      Arch: NATHVM64
+    t2.medium:
+      Arch: NATHVM64
+    t2.large:
+      Arch: NATHVM64
+    m1.small:
+      Arch: NATHVM64
+    m1.medium:
+      Arch: NATHVM64
+    m1.large:
+      Arch: NATHVM64
+    m1.xlarge:
+      Arch: NATHVM64
+    m2.xlarge:
+      Arch: NATHVM64
+    m2.2xlarge:
+      Arch: NATHVM64
+    m2.4xlarge:
+      Arch: NATHVM64
+    m3.medium:
+      Arch: NATHVM64
+    m3.large:
+      Arch: NATHVM64
+    m3.xlarge:
+      Arch: NATHVM64
+    m3.2xlarge:
+      Arch: NATHVM64
+    m4.large:
+      Arch: NATHVM64
+    m4.xlarge:
+      Arch: NATHVM64
+    m4.2xlarge:
+      Arch: NATHVM64
+    m4.4xlarge:
+      Arch: NATHVM64
+    m4.10xlarge:
+      Arch: NATHVM64
+    c1.medium:
+      Arch: NATHVM64
+    c1.xlarge:
+      Arch: NATHVM64
+    c3.large:
+      Arch: NATHVM64
+    c3.xlarge:
+      Arch: NATHVM64
+    c3.2xlarge:
+      Arch: NATHVM64
+    c3.4xlarge:
+      Arch: NATHVM64
+    c3.8xlarge:
+      Arch: NATHVM64
+    c4.large:
+      Arch: NATHVM64
+    c4.xlarge:
+      Arch: NATHVM64
+    c4.2xlarge:
+      Arch: NATHVM64
+    c4.4xlarge:
+      Arch: NATHVM64
+    c4.8xlarge:
+      Arch: NATHVM64
+    g2.2xlarge:
+      Arch: NATHVMG2
+    g2.8xlarge:
+      Arch: NATHVMG2
+    r3.large:
+      Arch: NATHVM64
+    r3.xlarge:
+      Arch: NATHVM64
+    r3.2xlarge:
+      Arch: NATHVM64
+    r3.4xlarge:
+      Arch: NATHVM64
+    r3.8xlarge:
+      Arch: NATHVM64
+    i2.xlarge:
+      Arch: NATHVM64
+    i2.2xlarge:
+      Arch: NATHVM64
+    i2.4xlarge:
+      Arch: NATHVM64
+    i2.8xlarge:
+      Arch: NATHVM64
+    d2.xlarge:
+      Arch: NATHVM64
+    d2.2xlarge:
+      Arch: NATHVM64
+    d2.4xlarge:
+      Arch: NATHVM64
+    d2.8xlarge:
+      Arch: NATHVM64
+    hi1.4xlarge:
+      Arch: NATHVM64
+    hs1.8xlarge:
+      Arch: NATHVM64
+    cr1.8xlarge:
+      Arch: NATHVM64
+    cc2.8xlarge:
+      Arch: NATHVM64
+  AWSRegionArch2AMI:
+    us-east-1:
+      HVM64: ami-0080e4c5bc078760e
+      HVMG2: ami-0aeb704d503081ea6
+    us-west-2:
+      HVM64: ami-01e24be29428c15b2
+      HVMG2: ami-0fe84a5b4563d8f27
+    us-west-1:
+      HVM64: ami-0ec6517f6edbf8044
+      HVMG2: ami-0a7fc72dc0e51aa77
+    eu-west-1:
+      HVM64: ami-08935252a36e25f85
+      HVMG2: ami-0d5299b1c6112c3c7
+    eu-west-2:
+      HVM64: ami-01419b804382064e4
+      HVMG2: NOT_SUPPORTED
+    eu-west-3:
+      HVM64: ami-0dd7e7ed60da8fb83
+      HVMG2: NOT_SUPPORTED
+    eu-central-1:
+      HVM64: ami-0cfbf4f6db41068ac
+      HVMG2: ami-0aa1822e3eb913a11
+    eu-north-1:
+      HVM64: ami-86fe70f8
+      HVMG2: ami-32d55b4c
+    ap-northeast-1:
+      HVM64: ami-00a5245b4816c38e6
+      HVMG2: ami-09d0e0e099ecabba2
+    ap-northeast-2:
+      HVM64: ami-00dc207f8ba6dc919
+      HVMG2: NOT_SUPPORTED
+    ap-northeast-3:
+      HVM64: ami-0b65f69a5c11f3522
+      HVMG2: NOT_SUPPORTED
+    ap-southeast-1:
+      HVM64: ami-05b3bcf7f311194b3
+      HVMG2: ami-0e46ce0d6a87dc979
+    ap-southeast-2:
+      HVM64: ami-02fd0b06f06d93dfc
+      HVMG2: ami-0c0ab057a101d8ff2
+    ap-south-1:
+      HVM64: ami-0ad42f4f66f6c1cc9
+      HVMG2: ami-0244c1d42815af84a
+    us-east-2:
+      HVM64: ami-0cd3dfa4e37921605
+      HVMG2: NOT_SUPPORTED
+    ca-central-1:
+      HVM64: ami-07423fb63ea0a0930
+      HVMG2: NOT_SUPPORTED
+    sa-east-1:
+      HVM64: ami-05145e0b28ad8e0b2
+      HVMG2: NOT_SUPPORTED
+    cn-north-1:
+      HVM64: ami-053617c9d818c1189
+      HVMG2: NOT_SUPPORTED
+    cn-northwest-1:
+      HVM64: ami-0f7937761741dc640
+      HVMG2: NOT_SUPPORTED
+Resources:
+  # Creates a VPC based on AWS Quickstart best practices
+  VPCStack:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: >-
+        https://aws-quickstart.s3.amazonaws.com/quickstart-aws-vpc/templates/aws-vpc.template
+      Parameters:
+        AvailabilityZones: !Join 
+          - ','
+          - !GetAZs 
+            Ref: 'AWS::Region'            
+  WebServerInstance:
+    Type: AWS::EC2::Instance
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          InstallAndRun:
+            - "Install"
+        Install:
+          packages:
+            yum:
+              mysql: []
+              mysql-libs: []
+              httpd: []
+              php: []
+              php-mysql: []
+          files:
+            /var/www/html/index.php:
+              content: !Sub |
+                <html>
+                  <head>
+                    <title>AWS CloudFormation PHP Sample</title>
+                    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                  </head>
+                  <body>
+                    <h1>Welcome to the AWS CloudFormation PHP Sample</h1>
+                    <p/>
+                    <?php
+                      // Print out the current data and time
+                      print "The Current Date and Time is: <br/>";
+                      print date("g:i A l, F j Y.");
+                    ?>
+                    <p/>
+                    <?php
+                      // Setup a handle for CURL
+                      $curl_handle=curl_init();
+                      curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
+                      curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
+                      // Get the hostname of the intance from the instance metadata
+                      curl_setopt($curl_handle,CURLOPT_URL,'http://169.254.169.254/latest/meta-data/public-hostname');
+                      $hostname = curl_exec($curl_handle);
+                      if (empty($hostname))
+                      {
+                        print "Sorry, for some reason, we got no hostname back <br />";
+                      }
+                      else
+                      {
+                        print "Web Server = " . $hostname . "<br />";
+                      }
+                      // Get the instance-id of the intance from the instance metadata
+                      curl_setopt($curl_handle,CURLOPT_URL,'http://169.254.169.254/latest/meta-data/instance-id');
+                      $instanceid = curl_exec($curl_handle);
+                      if (empty($instanceid))
+                      {
+                        print "Sorry, for some reason, we got no instance id back <br />";
+                      }
+                      else
+                      {
+                        print "Web Server EC2 instance-id = " . $instanceid . "<br />";
+                      }
+                    ?>
+                    <h2>Database Connection Information</h2>
+                    <p/>
+                    <form action="index.php" method="post">
+                    <table>
+                    <tr>
+                    <td> Enter Database Host  : </td> <td> <input type ="text" name = "host"/> </td><br>
+                    </tr>
+                    <tr>
+                    <td><input type ="submit" value = "Connect" name="submit"/></td><br>
+                    </tr>
+                    </table>
+                    </form>
+                    <?php
+                        include'db.php';
+                        $DBhost=$_POST['host'];
+                        $DBUser = "${DBUser}";
+                        $DBPassword = "${DBPassword}";
+                        $n=new db($DBhost, $DBUser,$DBPassword );
+                        $n->connect();
+                    ?>
+                  </body>
+                </html>
+              mode: '000600'
+              owner: apache
+              group: apache
+            /var/www/html/db.php:
+              content: !Sub |
+                <?php
+                class db
+                {
+                    public $dbhost;
+                    public $dbuser;
+                    public $dbpass;
+                    public $con;
+                    
+                    function db($dbhost = '', $dbuser = '', $dbpass = '')
+                    {
+                        $this->host=$dbhost;
+                        $this->user=$dbuser;
+                        $this->pass=$dbpass;
+                    }   
+                    public function connect()
+                    {
+                        $this->con=mysql_connect($this->host,$this->user,$this->pass);
+                        if($this->con)
+                        {
+                          echo'
+                          <p><font color="green">Connected to Database server '.$this->host.'</font></p>
+                          ';
+                          mysql_close($this->con);
+                        }
+                        elseif(!$this->con)
+                        {
+                          echo'
+                          <p><font color="red">Not Connected to Database server '.$this->host.'</font></p>
+                          ';
+                        }
+                    }
+                }
+                ?>  
+              mode: '000600'
+              owner: apache
+              group: apache              
+            /etc/cfn/cfn-hup.conf:
+              content: !Sub |
+                [main]
+                stack=${AWS::StackId}
+                region=${AWS::Region}
+              mode: '000400'
+              owner: root
+              group: root
+            /etc/cfn/hooks.d/cfn-auto-reloader.conf:
+              content: !Sub |
+                [cfn-auto-reloader-hook]
+                triggers=post.update
+                path=Resources.WebServerInstance.Metadata.AWS::CloudFormation::Init
+                action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource WebServerInstance --configsets InstallAndRun --region ${AWS::Region}
+                runas=root
+              mode: '000400'
+              owner: root
+              group: root
+          services:
+            sysvinit:
+              httpd:
+                enabled: 'true'
+                ensureRunning: 'true'
+              cfn-hup:
+                enabled: 'true'
+                ensureRunning: 'true'
+                files:
+                  - /etc/cfn/cfn-hup.conf
+                  - /etc/cfn/hooks.d/cfn-auto-reloader.conf
+    Properties:
+      ImageId: !FindInMap
+        - AWSRegionArch2AMI
+        - !Ref 'AWS::Region'
+        - !FindInMap
+          - AWSInstanceType2Arch
+          - !Ref 'InstanceType'
+          - Arch
+      InstanceType: !Ref 'InstanceType'
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      KeyName: !Ref 'KeyName'
+      Tags:
+        - Key: Name
+          Value: Web Server
+        - Key: Lab
+          Value: lab-controltower-cloudendure
+      NetworkInterfaces:
+        - DeleteOnTermination: true
+          Description: Primary network interface
+          DeviceIndex: '0'
+          SubnetId: !GetAtt 
+            - VPCStack
+            - Outputs.PublicSubnet1ID
+          GroupSet:
+            - !Ref WebServerSecurityGroup
+          AssociatePublicIpAddress: true      
+      UserData: !Base64
+        Fn::Sub: |
+          #!/bin/bash -xe
+          yum update -y aws-cfn-bootstrap
+          cd /tmp
+          sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+          sudo hostname webserver
+          # Install the files and packages from the metadata
+          /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource WebServerInstance --configsets InstallAndRun --region ${AWS::Region}
+          # Signal the status from cfn-init
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WebServerInstance --region ${AWS::Region}
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT5M  
+  DBServerInstance:
+    Type: AWS::EC2::Instance
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          InstallAndRun:
+            - "Install"
+            - "Configure"
+        Install:
+          packages:
+            yum:
+              mysql: []
+              mysql-server: []
+              mysql-libs: []
+          files:
+            /tmp/setup.mysql:
+              content: !Sub |
+                CREATE DATABASE ${DBName};
+                GRANT ALL ON ${DBName}.* TO '${DBUser}'@'%' IDENTIFIED BY '${DBPassword}';
+                FLUSH PRIVILEGES;
+              mode: '000400'
+              owner: root
+              group: root
+            /etc/cfn/cfn-hup.conf:
+              content: !Sub |
+                [main]
+                stack=${AWS::StackId}
+                region=${AWS::Region}
+              mode: '000400'
+              owner: root
+              group: root
+            /etc/cfn/hooks.d/cfn-auto-reloader.conf:
+              content: !Sub |
+                [cfn-auto-reloader-hook]
+                triggers=post.update
+                path=Resources.DBServerInstance.Metadata.AWS::CloudFormation::Init
+                action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource DBServerInstance --configsets InstallAndRun --region ${AWS::Region}
+                runas=root
+              mode: '000400'
+              owner: root
+              group: root
+          services:
+            sysvinit:
+              mysqld:
+                enabled: 'true'
+                ensureRunning: 'true'
+              cfn-hup:
+                enabled: 'true'
+                ensureRunning: 'true'
+                files:
+                  - /etc/cfn/cfn-hup.conf
+                  - /etc/cfn/hooks.d/cfn-auto-reloader.conf                  
+        Configure:
+          commands:
+            01_set_mysql_root_password:
+              command: !Sub 'mysqladmin -u root password ''${DBRootPassword}'''
+              test: !Sub '$(mysql ${DBName} -u root --password=''${DBRootPassword}''
+                >/dev/null 2>&1 </dev/null); (( $? != 0 ))'
+            02_create_database:
+              command: !Sub 'mysql -u root --password=''${DBRootPassword}'' < /tmp/setup.mysql'
+              test: !Sub '$(mysql ${DBName} -u root --password=''${DBRootPassword}''
+                >/dev/null 2>&1 </dev/null); (( $? != 0 ))'
+    Properties:
+      ImageId: !FindInMap
+        - AWSRegionArch2AMI
+        - !Ref 'AWS::Region'
+        - !FindInMap
+          - AWSInstanceType2Arch
+          - !Ref 'InstanceType'
+          - Arch
+      InstanceType: !Ref 'InstanceType'
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      KeyName: !Ref 'KeyName'
+      Tags:
+        - Key: Name
+          Value: Database Server
+        - Key: Database
+          Value: MySQL
+        - Key: Lab
+          Value: lab-controltower-cloudendure
+      NetworkInterfaces:
+        - DeleteOnTermination: true
+          Description: Primary network interface
+          DeviceIndex: '0'
+          SubnetId: !GetAtt 
+            - VPCStack
+            - Outputs.PrivateSubnet1AID
+          GroupSet:
+            - !Ref DBServerSecurityGroup      
+      UserData: !Base64
+        Fn::Sub: |
+          #!/bin/bash -xe
+          yum update -y aws-cfn-bootstrap
+          cd /tmp
+          sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+          sudo hostname dbserver
+          # Install the files and packages from the metadata
+          /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource DBServerInstance --configsets InstallAndRun --region ${AWS::Region}
+          # Signal the status from cfn-init
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource DBServerInstance --region ${AWS::Region}
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT5M
+         
+  # Security Group with application layer rules
+  WebServerSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security Group Web
+      VpcId: !GetAtt 
+        - VPCStack
+        - Outputs.VPCID
+  # Security Group with database layer rules  
+  WebIngress1:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref WebServerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: !Ref MyClientIP      
+  WebIngress2:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref WebServerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      CidrIp: !Ref MyClientIP
+  # Security Group with database layer rules    
+  DBServerSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security Group - source DB
+      VpcId: !GetAtt 
+        - VPCStack
+        - Outputs.VPCID
+  # Rule allows application layer access to database layer.
+  DBIngress1:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref DBServerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 3306
+      ToPort: 3306
+      SourceSecurityGroupId: !Ref WebServerSecurityGroup
+      
+  # Rule allows app server access to SSH database server.
+  DBIngress2:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+      GroupId: !Ref DBServerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 22
+      ToPort: 22
+      SourceSecurityGroupId: !Ref WebServerSecurityGroup      
+  # Instance Profile to support the Amazon EC2 instance with the application
+  EC2InstanceProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Path: /
+      Roles:
+        - !Ref EC2Role
+  # Role to support the Amazon EC2 instance with the application
+  EC2Role:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'
+      Path: /      
+Outputs:
+  WebsiteURL:
+    Description: URL for newly created LAMP stack
+    Value: !Sub 'http://${WebServerInstance.PublicDnsName}'
+  DatabaseServer:
+    Description: URL for newly created LAMP stack
+    Value: !GetAtt DBServerInstance.PrivateIp

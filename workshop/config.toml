@@ -1,0 +1,59 @@
+RelativeURLs=true
+CanonifyURLs=true
+languageCode = "en-US"
+defaultContentLanguage = "en"
+
+title = "AWS CloudEndure Disaster Recovery Workshop"
+theme = "learn"
+metaDataFormat = "yaml"
+defaultContentLanguageInSubdir= true
+
+uglyurls = true
+sectionPagesMenu = "main"
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
+
+[markup.goldmark.renderer]
+unsafe= true
+
+[params]
+  editURL = "https://github.com/Ssriram83/cloud-endure-workshop"
+  description = "AWS CloudEndure Disaster Recovery Workshop"
+  author = "Sriram Sundararajan Ramanan Kannan"
+  disableBreadcrumb = false
+  disableNextPrev = false
+  themeVariant = "aws"
+  disableSearch = false
+  disableAssetsBusting = true
+  disableLanguageSwitchingButton = false
+  disableShortcutsTitle = true
+  disableInlineCopyToClipBoard = true
+
+
+  [[menu.shortcuts]]
+  name = "<i class='fab fa-github'></i> GitHub Project"
+  url = "https://github.com/Ssriram83/cloud-endure-workshop"
+  weight = 30
+
+  [[menu.shortcuts]]
+  name = "<i class='fas fa-envelope'></i> Have questions?"
+  url = "mailto:application-migration-workshop@amazon.com"
+  weight = 40
+
+  [[menu.shortcuts]]
+  name = "<i class='fas fa-poll'></i> Rate the workshop"
+  url = "https://amazonmr.au1.qualtrics.com/jfe/form/SV_0dfrnubGKXavgR7"
+  weight = 50
+
+  [[menu.shortcuts]]
+  name = "<i class='fas fa-book-open'></i> More resources"
+  url = "https://aws.amazon.com/cloudendure-disaster-recovery/"
+  weight = 60
+
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[blackfriday]
+plainIDAnchors = true
+hrefTargetBlank = false
