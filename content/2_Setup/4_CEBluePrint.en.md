@@ -1,7 +1,8 @@
 +++
-title = "Prepare Blueprint(s)"
-weight = 3
+title = "CloudEndure Configuration"
+weight = 4
 +++
+
 
 Blueprint includes parameters such as machine type (for example t3.medium), **subnet** where the machine should be running, **private IP** address and disk types.
 
