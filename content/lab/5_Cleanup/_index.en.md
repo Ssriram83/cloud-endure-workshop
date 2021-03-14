@@ -1,8 +1,9 @@
 +++
 title = "Cleanup"
-weight = 2
+weight = 6
 
 +++
+-----------
 
 
 ### Deleting AWS resources deployed in this lab

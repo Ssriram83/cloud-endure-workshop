@@ -1,12 +1,12 @@
 +++
 title = "What We'll Build"
-weight = 3
+weight = 1
 +++
 
 ### Architecture Overview
 
 The architecture for this lab exercise is shown in the following diagram.
-In this lab, we will be setting up a cross-region Disaster Recovery solution for a fictional 2-tier LAMP Stack by using CloudEndure.
+In this lab, we will learn how to set up and test Disaster Recovery for a sample 2-tier web application.
 The Source Infrastructure will be setup in `us-east-1` AWS region by using cloudformation template and the Target DR site will be in `eu-west-1` AWS region. 
 
 ![Architecture](/lab1/DR_Architecture_Cross_Region.png?classes=shadow,border)

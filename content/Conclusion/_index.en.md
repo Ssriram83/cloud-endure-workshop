@@ -1,12 +1,12 @@
 +++
-title = "Wrapping Up"
-weight = 6
+title = "Conclusion"
+weight = 4
 
 +++
 
 Congratulations for making this far!
 
-Here’s a reminder of everything we accomplished. 
+Here's a reminder of everything we accomplished. 
 
 We:
 1. Setup a CloudEndure Disaster Recovery project and Replication. 

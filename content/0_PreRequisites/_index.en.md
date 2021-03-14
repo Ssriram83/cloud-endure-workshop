@@ -6,5 +6,5 @@ weight = 1
 
 Please complete these pre-requisites before moving on to the workshop setup.
 
-- [Create an AWS Account](/0_gettingstarted/prerequisites.html)
-- [Subscribe for CloudEndure](/0_gettingstarted/prerequisites.html)
+- [Set up AWS Account](/0_prerequisites/1_createawsaccount.html)
+- [Register for CloudEndure](/0_prerequisites/2_setupce.html)

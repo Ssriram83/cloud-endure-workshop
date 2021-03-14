@@ -1,5 +1,5 @@
 +++
-title = "Register for CloudEndure "
+title = "Register for CloudEndure"
 weight = 2
 +++
 ----------------
