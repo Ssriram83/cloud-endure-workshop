@@ -21,14 +21,15 @@ Once you have a CloudEndure Account, you need to associate it with one or more L
 
 Licenses can be of type either of `Migration` or `Disaster Recovery`. Each License Package has a certain number of licenses. The number of licenses you need depends on the number of machines in the Source infrastructure that you want to use with. 
 
-{{% notice tip %}}
-You can procure un-limited number of CloudEndure Migration Licenses free for 90 days.
+{{% notice note %}}
+CloudEndure Migration is now available at no charge for all migrations to AWS.
+Go to [CloudEndure Migration Registration page](https://console.cloudendure.com/#/register/register) to create an account and start migrating to AWS in minutes!
 {{% /notice %}}
 
 #### Project
 
 A Project is the basic organizational unit for running a CloudEndure solution. Each Project applies one solution – either CloudEndure Migration or Disaster Recovery and has a specific Source infrastructure and a specific Target infrastructure. Each Project has its own Installation Token. This Installation Token is used to install Agents on the Source machines of the Project. Thus, the monitoring and managing of the Source machines is done at the Project level.
 
-{{% notice warning %}}
+{{% notice info %}}
 You cannot have CloudEndure Migration and Disaster Recovery projects under the same account.
  {{% /notice %}}

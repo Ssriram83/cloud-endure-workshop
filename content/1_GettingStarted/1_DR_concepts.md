@@ -3,6 +3,27 @@ title = "Disaster Recovery Concepts"
 weight = 1
 +++
 
+#### What is a Disaster?
+When planning for disaster recovery, evaluate your plan for these three main categories of disaster:
+
+- Natural disasters, such as earthquakes or floods
+- Technical failures, such as power failure or network connectivity
+- Human actions, such as inadvertent misconfiguration or unauthorized/outside party access or modification
+
+Each of these potential disasters will also have a geographical impact that can be local, regional, country-wide, continental, or global. 
+
+#### Disaster Recovery Options
+
+Disaster recovery strategies can be broadly categorized into four approaches, ranging from the low cost and low complexity of making backups to more complex strategies using multiple active Regions.
+
+![DR Options](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/images/disaster-recovery-strategies.png)
+
+CloudEndure Disaster Recovery uses the Pilot Light strategy, maintaining a copy of data and switched-off resources in an Amazon Virtual Private Cloud (Amazon VPC) used as a staging area. When a failover event is triggered, the staged resources are used to automatically create a full-capacity deployment in the target Amazon VPC used as the recovery location. Accordingly, CloudEndure’s Disaster Recovery solution
+provides the resilience of a warm standby solution at the low cost of a cold standby solution. 
+
+#### RPO & RTO
+
+![RPO and RTO](https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/images/recovery-objectives.png)
 
 #### Recovery Point Objectives (RPO)
 

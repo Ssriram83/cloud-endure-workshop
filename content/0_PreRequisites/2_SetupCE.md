@@ -39,3 +39,5 @@ In this section, we will register for “CloudEndure Disaster Recovery to AWS”
 
 10. Your Account will now be activated. Navigate to [console.cloudendure.com](https://console.cloudendure.com/#/signIn)
       ![img](https://docs.cloudendure.com/Content/Resources/Images/regmig4.png?classes=shadow,border)
+
+You have now completed the process of registering to ‘CloudEndure Disaster Recover to AWS’ and activating your CloudEndure account subscription.

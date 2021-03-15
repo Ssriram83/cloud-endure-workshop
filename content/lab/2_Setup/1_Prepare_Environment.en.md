@@ -7,7 +7,9 @@ weight = 1
 
 To create the source infrastructure, go to AWS CloudFormation console AWS Console in `us-east-1` region Click on **Create Stack**, under **Choose a template** select Specify an **Amazon S3 template URL** and copy-paste below link and click **Next**.
 
-`https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml`
+```
+https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml
+```
 
 Provide a Stack name as **source-simulated**
 
@@ -17,7 +19,7 @@ Enter the following Parameters to create the stack :
 
 - **MyClientIP**: Add your IP or CIDR to allow access via http (port 80) to the web application.  If you dont know your IP, you can find your by [searching in the browser](https://www.google.com/search?q=what+is+my+ip). 
 - Click **Next** → **Next** → **Create Stack**.
-- It creates a VPC and deploys the 2-Tier LAMP stack(webserver & dbserver) and takes ~7 minutes to complete.
+- It creates a VPC and deploys the 2-Tier LAMP stack(webserver & dbserver) and takes ~5 minutes to complete.
 
 1. When stack **Status** will show **CREATE_COMPLETE**, please go to **Outputs** tab and copy the **DatabaseServer IP** and open the **WebsiteURL** in new browser tab.
 

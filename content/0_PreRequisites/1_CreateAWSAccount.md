@@ -24,7 +24,7 @@ In this step, we will:
 * Create an IAM access policy that contains the necessary permissions for using AWS as the target DR infrastructure
 * Create an IAM user which will be used by the CloudEndure service to replicate data to the target DR infrastructure.
 
-#### Step: 3(b) -Creating a New IAM User and Generating AWS Credentials 
+#### Step: 3(a) -Creating a New IAM User and Generating AWS Credentials 
 
 
 1. Sign in to [AWS Console](https://signin.aws.amazon.com/) as an IAM user with administrator privileges.
