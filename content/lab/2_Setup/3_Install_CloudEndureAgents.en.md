@@ -3,9 +3,9 @@ title = "Install Agents on Source Machines"
 weight = 3
 +++
 
-### Install CloudEndure Agents
+#### Install CloudEndure Agents
 
-Go to the AWS **Systems Manager** **Run Command** console. Select Run Command in the upper right to start the installation process. To install CloudEndure agent on the Linux instance, choose the **AWS-RunShellScript* Command document.
+Go to the AWS **Systems Manager** **Run Command** console. Select Run Command in the upper right to start the installation process. To install CloudEndure agent on the Linux instance, choose the **AWS-RunShellScript** Command document.
 
 ![Run Shell](/lab1/AWS-RunShellScript.png?classes=shadow,border&height=350px)
 

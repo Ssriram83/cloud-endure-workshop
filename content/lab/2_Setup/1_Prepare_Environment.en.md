@@ -3,9 +3,13 @@ title = "Prepare the Environment"
 weight = 1
 +++
 
-### Preparing the Simulated Source Environment
+#### Sep 1: Create a Key pair
 
-To create the source infrastructure, go to AWS CloudFormation console AWS Console in `us-east-1` region Click on **Create Stack**, under **Choose a template** select Specify an **Amazon S3 template URL** and copy-paste below link and click **Next**.
+Create a EC2 Key pair by following [these steps](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). This Key will be used in next steps.
+
+#### Step2: Preparing the Simulated Source Environment
+
+To create the source infrastructure, go to [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) in `us-east-1` region Click on **Create Stack**, under **Choose a template** select Specify an **Amazon S3 template URL** and copy-paste below link and click **Next**.
 
 ```
 https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml
@@ -29,10 +33,12 @@ Enter the following Parameters to create the stack :
 
 *At this stage our source simulated environment is ready for the lab.
 
-### Preparing your Target Environment
+#### Step3: Preparing your Target Environment
 
-Navigate to to AWS CloudFormation console screen AWS Console in `eu-west-1` region. Click on **Create Stack**, under Choose a template select Specify an Amazon S3 template URL and copy-paste below link and click Next. 
+Navigate to to [AWS CloudFormation console screen](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1) in `eu-west-1` region. Click on **Create Stack**, under Choose a template select Specify an Amazon S3 template URL and copy-paste below link and click Next. 
 
-`https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/MigrationTargetVPC.yml` 
+``` 
+https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/MigrationTargetVPC.yml
+``` 
 
 Provide a Stack name as TargetVPC. Click Next, review the options you select and click Next again. Wait for the Stack Status to become CREATE_COMPLETE.

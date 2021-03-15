@@ -14,11 +14,12 @@ To begin, you will need to the **AWS credentials** that we [previously created](
 
 2. Project Setup:
 
-- Project name – AWS_CROSS_REGION_DR_DEMO
-- Project type – select Disaster Recovery.
+- Project name – `AWS_CROSS_REGION_DR_DEMO`
+- Project type – `Disaster Recovery`.
 - Target cloud – CloudEndure exclusively utilizes the AWS cloud as a Target infrastructure.
-- License - select a License Package to associate with your Project.
-Your Create New Project dialog box should look similar to the following. Click CREATE PROJECT when you are ready to create the new Project.
+- License - select the `Disaster Recovery` License Package to associate with your Project.
+
+Your Create New Project dialog box should look similar to the following. Click **CREATE PROJECT** when you are ready to create the new Project.
 ![Project](/lab1/PROJECT_CONFIGURATION.png?classes=shadow,border&height=350px)
 
 3. Once the project is created successfully, Navigate to **Setup & Info** > **AWS Credentials** tab and enter **AWS Access Key ID** and **AWS Secret Access Key** that we generated in the [**PreRequisites Section**](/0_prerequisites/1_createawsaccount.html).
@@ -27,7 +28,7 @@ Your Create New Project dialog box should look similar to the following. Click C
 
 #### Step 2 - Configure Replication Settings
 
-Once you save your **AWS Credentials**, you will be automatically redirected to the **Setup & Info** > **REPLICATION SETTINGS** tab, this is where you configure details of the **CloudEndure Replication Server**.
+Once you save your **AWS Credentials**, you will be automatically redirected to the **Setup & Info** > **REPLICATION SETTINGS** tab, this is where you will configure details of the **CloudEndure Replication Server**.
 
 {{% notice note %}}
 Before proceeding **refresh the browser** to retrieve the latest information from your AWS account (you can do this by pressing the **F5** button or manually refreshing your browser by clicking on the refresh button).
@@ -37,19 +38,34 @@ Before proceeding **refresh the browser** to retrieve the latest information fro
 
 1. Update the configuration of the **REPLICATION SETTINGS** screen to match the values below:
 
-    | Parameter                                  | Value                                                        |
-    | ------------------------------------------ | ------------------------------------------------------------ |
+  The REPLICATION SETTINGS page enables you to define your Source and Target environments, and the default Replication Servers in the Staging Area of the Target infrastructure. 
+  
+    
+
+ | Parameter                                  | Value |
+    | ------------------------------------------ |------------------------------------------ | 
     | Disaster Recovery Source                           | AWS US East Infrastructure                                         |
     | Disaster Recovery Target                           | AWS EU (Ireland)                                         |
     | Replication Server instance type           | Default                                                      |
-    | Converter instance type                    | m5.large                                                     |
+    | Converter instance type                    | m4.large/m5.large (default)                                                     |
     | Dedicated replication servers              | Unchecked                                                    |
     | Subnet for the replication servers         | TargetVPC-public-a |
     | Security Group for the replication servers | Default CloudEndure Security Group                                                     |
     | Use VPN or DirectConnect (using a private IP) | Unchecked                                                |
-    | Enable volume encryption                   | Checked                                                     |    
-    | Choose the Volume Encryption Key you wish to apply to the Replication Servers' volumes | Default volume encryption key  |
-    
+    | Enable volume encryption                   | UnChecked                                                     |    
+
+Here is a quick explanation of some of the important settings: 
+
+- **Source infrastructure** -  The source infrastructure, that you want to protect. This can be either of **Other Infrastructure**, **Specific AWS region** or 
+**vCenter appliance**
+
+- **Target Infrastructure** - Select the AWS region that will serve as the Target to which you want to replicate your data.
+
+- **Replication Servers** are small machines used to facilitate data replication. CloudEndure uses a t3.small instance type as the default. For every 15 disks in source infrastructure, a replication server will be used. You have an option to enable  
+
+- **Dedicated Replication Server**. This will dedicate a single Replication Server for each Source machine. 
+
+- **Converter instance** are server that converts the disks to boot and run in the Target infrastructure. 
 
 2. Scroll to the bottom of the screen and click **SAVE REPLICATION SETTINGS** button. The dialog window  **Project Setup Complete!** will appear.
 
@@ -59,8 +75,5 @@ In this lab, we will be using linux machines and your instructions will look lik
 
 
 {{% notice tip %}}
-Whenever you forget the instructions, Click on  **Machines > MACHINE ACTIONS > Add Machines**. This opens guidelines to install CloudEndure agent on your source instances.
+In case, you forget the instructions to install, Click on  **Machines > MACHINE ACTIONS > Add Machines**. This opens guidelines to install CloudEndure agent on your source instances.
 {{% /notice %}}
-
-
- 
