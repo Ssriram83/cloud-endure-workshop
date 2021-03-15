@@ -8,6 +8,12 @@ Blueprint includes parameters such as machine type (for example t3.medium), **su
 
 To configure the Blueprint, go to the **Machines** tab and click on the name of the machine that you want to configure. Then navigate to the **BLUEPRINT** section.
 
+{{% notice tip %}}
+Clicking the machine name (not the checkbox) will provide more configuration options.
+{{% /notice %}}
+
+
+
 #### Step 1: Configure Webserver Blueprint
 
 In the CloudEndure console, select Machines from the left sidebar. 

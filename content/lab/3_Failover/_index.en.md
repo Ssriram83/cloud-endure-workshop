@@ -9,10 +9,9 @@ Once you have completed the replication of volumes (status next to machine name 
 This is how the project looks when it is in **Continous Data Protection** mode. 
 ![CDP Status](/lab1/instances_cdp_status.PNG?classes=shadow,border)
 
-Every time you start the **Test/Failover**, CloudEndure  deletes any previously created instances and creates a **new Target instance** that is up to date with the latest copy of the data from the Source Environment.
-
 {{% notice note %}}
-According to best practice, and in real life, you should perform a **Test**  prior regularly. This is to identify potential challenges with your Blueprint configuration or with replicated volume conversion and address them.
+CloudEndure will, by default, removes any resources created during the test process either when requested by the user or when a new test machine is launched. To prevent this in AWS, you can enable Termination Protection, for the Target instance, and the resources will not be removed upon a new Target launch.
+
 {{% /notice %}}
 
 1. Confirm that the volumes are fully replicated

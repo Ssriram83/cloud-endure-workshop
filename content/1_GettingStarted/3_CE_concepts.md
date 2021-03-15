@@ -4,7 +4,8 @@ weight = 3
 +++
 
 {{% notice tip %}}
-For a more detailed explanation on each of the below concepts, please checkout the documentation [CloudEndure Documentation]({{< ref "https://docs.cloudendure.com/" >}}).
+For a more detailed explanation on each of the below concepts, please checkout the documentation [CloudEndure Documentation](https://docs.cloudendure.com/).
+
 {{% /notice %}}
 
 #### Account
