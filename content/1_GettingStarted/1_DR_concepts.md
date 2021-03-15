@@ -51,8 +51,8 @@ Disaster Recovery Options **
 
 Disaster recovery strategies can be broadly categorized into four approaches, ranging from the low cost and low complexity of making backups to more complex strategies using multiple active Regions.
 
-![DR Options](/intro/disaster-recovery-strategies.png)
+![DR Options](/intro/disaster-recovery-strategies.png?classes=shadow,border)
 
 CloudEndure Disaster Recovery uses the Pilot Light strategy, maintaining a copy of data and switched-off resources in an Amazon Virtual Private Cloud (Amazon VPC) used as a staging area. When a failover event is triggered, the staged resources are used to automatically create a full-capacity deployment in the target Amazon VPC used as the recovery location. Accordingly, CloudEndure’s Disaster Recovery solution provides the resilience of a warm standby solution at the low cost of a cold standby solution.
 
-For a further detailed understanding of various DR strategies on AWS, we recommend you to check out this URL: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html
+For a further detailed understanding of various DR strategies on AWS, we recommend you to check out this [URL] (https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html)
