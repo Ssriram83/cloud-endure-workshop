@@ -1,5 +1,5 @@
 +++
-title = "CloudEndure Blueprint"
+title = "Prepare Blueprint(s)"
 weight = 4
 +++
 

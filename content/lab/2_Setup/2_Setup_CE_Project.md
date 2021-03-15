@@ -1,5 +1,5 @@
 +++
-title = "Setup CloudEndure Project"
+title = "CloudEndure Configuration"
 weight = 2
 +++
 
@@ -59,7 +59,7 @@ Before proceeding **refresh the browser** to retrieve the latest information fro
     | Choose the Volume Encryption Key you wish to apply to the Replication Servers' volumes | Default volume encryption key  |
     
 
-2. Scroll to the bottom of the screen and click **SAVE REPLICATION SETTINGS** button. The dialog box **Project Setup Complete!** will appear.
+2. Scroll to the bottom of the screen and click **SAVE REPLICATION SETTINGS** button. The dialog window  **Project Setup Complete!** will appear.
 
 Select SHOW ME HOW in the lower right. This opens guidelines to install CloudEndure agent on your source instances. In this lab, we will be using linux machines and your instructions will look like this:
 

@@ -1,5 +1,5 @@
 +++
-title = "Install CloudEndure Agents"
+title = "Install Agents on Source Machines"
 weight = 3
 +++
 
@@ -13,15 +13,15 @@ For command parameters, once you selected **AWS-RunShellScript** copy the comman
 
 ![AWS-RunShellScriptParams](/lab1/AWS-RunShellScriptParams.png?classes=shadow,border)
 
-For Targets, select Choose instance manually. Then check the checkbox next to Database & Web server instances to select them, as shown in the following screenshot.
+For target instances, select **Choose instances manually**. Then check the checkbox next to Database & Web server instances to select them, as shown in the following screenshot.
 
 ![AWS-RunShellScriptTargets](/lab1/AWS-RunShellScriptTargets.png?classes=shadow,border&height=350px)
 
-From the Output options, uncheck the Enable writing to an S3 bucket box and click on Run button. Wait until the status changes to Success.
+From the Output options, uncheck the **Enable writing to an S3 bucket** box and click on Run button. Wait until the status changes to Success.
 
 ![AWS-RunShellScriptsSuccess](/lab1/AWS-RunShellScriptSuccess.png?classes=shadow,border&height=350px)
 
-Then navigate back to the **CloudEndure User Console** Browser Dashboard. Your instance now appears as an object in the Initial Sync phase. Wait until all instances reach **Continuous Data Replication** in the Data Replication Progress column.
+Then navigate back to the **CloudEndure User Console** browser dashboard. Your instance now appears as an object in the Initial Sync phase. Wait until all instances reach **Continuous Data Replication** in the Data Replication Progress column.
 
 ![CloudEndure Machine Status](/lab1/machine_status_cloudendure.PNG?classes=shadow,border&height=350px)
 

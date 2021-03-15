@@ -28,6 +28,6 @@ Now the DR site is up. In an actual disaster situation, the primary site will be
 
 
 {{% notice info %}}
-After a failover and a failback cycle, our machines will yet again undergo the initiation sequence.
+After a successfull failover and a failback cycle, our machines will undergo the initiation sequence.
 {{% /notice %}}
 

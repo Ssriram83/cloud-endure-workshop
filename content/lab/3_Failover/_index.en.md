@@ -26,7 +26,7 @@ According to best practice, and in real life, you should perform a **Test**  pri
     ![CE-Failover](/lab1/recovery_mode_launch.png?classes=shadow,border)
 
 
-    In the next scree, choose Recovery Point. With CloudEndure you can perform Point-in-Time Recovery. The frequency and number of Recovery Points are exact - every 10 minutes in the last hour, every hour in the last day and every day in the last month (60 in total per disk).
+    In the next screen, choose Recovery Point. With CloudEndure you can perform Point-in-Time Recovery. The frequency and number of Recovery Points are exact - every 10 minutes in the last hour, every hour in the last day and every day in the last month (60 in total per disk).
 
     ![Recovery Point](/lab1/choose_recovery_point.png?classes=shadow,border&height=350px)
 

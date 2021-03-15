@@ -1,6 +1,6 @@
 +++
 title = "CloudEndure Concepts"
-weight = 2
+weight = 3
 +++
 
 {{% notice tip %}}
