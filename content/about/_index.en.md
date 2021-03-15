@@ -15,6 +15,10 @@ For the workshop guide, please contact the author directly as per contact detail
 
 General feedback and ratings, please use the [link](https://amazonmr.au1.qualtrics.com/jfe/form/SV_0dfrnubGKXavgR7)
 
-#### About
+#### About Authors
+
+- [Ramanan](https://www.linkedin.com/in/ramanankannan/)
+
+- [Sriram](https://www.linkedin.com/in/sriram-sundararajan-2a929a4/)
 
 

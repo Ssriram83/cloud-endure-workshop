@@ -67,6 +67,14 @@ Here is a quick explanation of some of the important settings:
 
 - **Converter instance** are server that converts the disks to boot and run in the Target infrastructure. 
 
+{{% notice tip %}}
+For a more detailed list of options on replication settings - please refer the 
+[documentation](https://docs.cloudendure.com/#Defining_Your_Replication_Settings/Defining_Your_Replication_Settings.htm%3FTocPath%3DNavigation%7CDefining%2520Your%2520Replication%2520Settings%7C_____0).
+
+{{% /notice %}}
+
+
+
 2. Scroll to the bottom of the screen and click **SAVE REPLICATION SETTINGS** button. The dialog window  **Project Setup Complete!** will appear.
 
 In this lab, we will be using linux machines and your instructions will look like this:

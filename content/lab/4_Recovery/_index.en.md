@@ -20,6 +20,11 @@ Now the DR site is up. In an actual disaster situation, the primary site will be
 
 4. You will now need to launch new Target machines for your failed back machines. Check the box to the left of each machine name, click the **LAUNCH TARGET MACHINES** menu, and select **Recovery Mode**.
 
+{{% notice info %}}
+The source machines needs to be terminated or removed from the VPC, as the new servers will have the same information, and may cause collision if they are not removed. 
+{{% /notice %}}
+
+
 5. Once the Target machines have been launched, click the **PROJECT ACTIONS** menu and select **Return to Normal Operation** to reverse the direction of Data Replication back to its normal state (original Source to original Target.)
 
 ![Return to Normal](/lab1/return_to_normal.png?classes=shadow,border)
