@@ -4,7 +4,7 @@ weight = 2
 +++
 
 
-To begin, you will need to the **AWS credentials** that we [previously created](/0_prerequisites/1_createawsaccount.html). 
+To begin, you will need to the **AWS credentials** that we [previously created](/0_prerequisites/1_createawsaccount.html#step-3b--creating-a-new-iam-user-and-generating-aws-credentials). 
 
 #### Step 1 - Create CloudEndure Project
 
