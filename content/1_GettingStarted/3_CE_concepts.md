@@ -22,6 +22,8 @@ Once you have a CloudEndure Account, you need to associate it with one or more L
 
 Licenses can be of type either of `Migration` or `Disaster Recovery`. Each License Package has a certain number of licenses. The number of licenses you need depends on the number of machines in the Source infrastructure that you want to use with. 
 
+You can  procure CloudEndure Disaster Recovery license package from the [AWS MarketPlace](https://aws.amazon.com/marketplace/pp/B07XQNF22L).
+
 {{% notice note %}}
 CloudEndure Migration is now available at no charge for all migrations to AWS.
 Go to [CloudEndure Migration Registration page](https://console.cloudendure.com/#/register/register) to create an account and start migrating to AWS in minutes!

@@ -3,27 +3,28 @@ title = "Prepare the Environment"
 weight = 1
 +++
 
-#### Sep 1: Create a Key pair
+#### Step 1: Create a Key pair
 
-Create a EC2 Key pair by following [these steps](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). This Key will be used in next steps.
+- Open the [Amazon EC2 console](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs:).
+- Choose `Create key pair`.
+- For Name, enter `cloudendure-dr-lab`.
+- For File format, choose `pem`.
+- Choose `Create key pair`.
 
-#### Step2: Preparing the Simulated Source Environment
+The private key file is automatically downloaded by your browser. Save the private key file in a safe place, we will be using it in the later part of the lab.
 
-To create the source infrastructure, go to [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home?region=us-east-1) in `us-east-1` region Click on **Create Stack**, under **Choose a template** select Specify an **Amazon S3 template URL** and copy-paste below link and click **Next**.
+#### Step2: Prepare the Simulated Source Environment
 
-```
-https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml
-```
+To create the source infrastructure, Click {{% button href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=TargetVPC&region=eu-west-1&templateURL=https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=source-simulated&templateURL=https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml" icon="fas fa-rocket" %}}Launch Source Environment{{% /button %}}
 
-Provide a Stack name as **source-simulated**
-
-Enter the following Parameters to create the stack :
+In the console, enter the following Parameters to create the stack:
 
 ![CloudFormation Parameters](/lab1/source-simulated-app.png?classes=shadow,border)
 
-- **MyClientIP**: Add your IP or CIDR to allow access via http (port 80) to the web application.  If you dont know your IP, you can find your by [searching in the browser](https://www.google.com/search?q=what+is+my+ip). 
+- **KeyName**: Choose `cloudendure-dr-lab`
+- **MyClientIP**: Add the public IP of your laptop / desktop as a /32 CIDR block (i.e a.b.c.d/32) to allow access via http (port 80) to the web application.  If you don't know your IP, you can find your by [Clicking this link](http://checkip.amazonaws.com/).
 - Click **Next** → **Next** → **Create Stack**.
-- It creates a VPC and deploys the 2-Tier LAMP stack(webserver & dbserver) and takes ~5 minutes to complete.
+- This creates a VPC and deploys the 2-Tier LAMP stack(webserver & dbserver) and takes ~5 minutes to complete.
 
 1. When stack **Status** will show **CREATE_COMPLETE**, please go to **Outputs** tab and copy the **DatabaseServer IP** and open the **WebsiteURL** in new browser tab.
 
@@ -35,10 +36,8 @@ Enter the following Parameters to create the stack :
 
 #### Step3: Preparing your Target Environment
 
-Navigate to to [AWS CloudFormation console screen](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1) in `eu-west-1` region. Click on **Create Stack**, under Choose a template select Specify an Amazon S3 template URL and copy-paste below link and click Next. 
+We will be creating the network stack required to run the target DR site. Click to launch target environment {{% button  href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=TargetVPC&region=eu-west-1&templateURL=https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/MigrationTargetVPC.yml" icon="fas fa-rocket" %}}Launch Target Environment{{% /button %}}
 
-``` 
-https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/MigrationTargetVPC.yml
-``` 
+- **MyClientIP**: Add the public IP of your laptop / desktop as a /32 CIDR block (i.e a.b.c.d/32) to allow access via http (port 80) to the web application.  If you don't know your IP, you can find your by [Clicking this link](http://checkip.amazonaws.com/).
 
-Provide a Stack name as TargetVPC. Click Next, review the options you select and click Next again. Wait for the Stack Status to become CREATE_COMPLETE.
+Click Next, review the options you select and click Next again. Wait for the Stack Status to become CREATE_COMPLETE.

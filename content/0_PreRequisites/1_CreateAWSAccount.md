@@ -5,7 +5,7 @@ weight = 1
 ----------------
 
 {{% notice info %}}
-This section requires you to have access to an active *AWS account* with Administrator privileges. If you already have an active AWS account with administrator access, you can skip Step: 1 and Step: 2 and proceed to Step: 3. 
+This section requires you to have access to an active *AWS account* with Administrator privileges. If you already have an active AWS account with administrator access, you can skip Step: 1 and Step: 2 and proceed to Step: 3.
 {{% /notice %}}
 
 ### Step: 1 - Create and activate an AWS account
@@ -26,11 +26,10 @@ In this step, we will:
 
 #### Step: 3(a) -Creating a New IAM User and Generating AWS Credentials 
 
-
 1. Sign in to [AWS Console](https://signin.aws.amazon.com/) as an IAM user with administrator privileges.
 
 2. In the AWS Console, click on **Services** and then navigate to **Security, Identity & Compliance > IAM.**
- 
+
 3. On the **Welcome to Identity and Access Management** page, select the **Policies** option from the left-hand navigational menu.
   
 4. On the **Policies** page, click the **Create policy** button.

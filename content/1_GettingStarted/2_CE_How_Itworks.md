@@ -12,9 +12,9 @@ Because the staging area does not run a live version of your workloads, you do n
 [![How CloudEndure works](https://d1.awsstatic.com/products/CloudEndure/CloudEndure_Disaster_Recovery_Architecture_v2.3ae714976d6a72508467f7e40546dffd712dae9d.jpg?classes=shadow)](https://d1.awsstatic.com/products/CloudEndure/CloudEndure_Disaster_Recovery_Architecture_v2.3ae714976d6a72508467f7e40546dffd712dae9d.jpg?classes=shadow)
 
 
-Lets now look at how CloudEndure helps you acheive RPO and RTO:
+Lets now look at how CloudEndure can help you achieve your RPO and RTO requirements:
 
-**RPO:** The continuous replication approach enables sub-second RPO as long as the written data can be immediately copied across the network and into the replication Staging Area volumes. 
+**RPO:** The CloudEndure Disaster Recovery agent continuously monitors the blocks written to the source server volume(s), and immediately attempts to copy the blocks across the network and into the replication Staging Area located in the customer’s target AWS account. This continuous replication approach enables an RPO of 1 second as long as the written data can be immediately copied across the network and into the replication Staging Area volumes.
  
  **RTO**: When launching a recovery job, the CloudEndure Disaster Recovery orchestration process creates cloned volumes by using the replicated volumes in the replication Staging Area. During this process, CloudEndure Disaster Recovery also initiates a process that creates AWS-compatible volumes, which are attached to EC2 instances that can boot natively on AWS. 
 

@@ -20,7 +20,7 @@ CloudEndure will, by default, removes any resources created during the test proc
 
     If it's still replicating, wait until it reaches the **Continuous Data Replication** state. While waiting you can review <a href="https://docs.cloudendure.com/" target="_blank">CloudEndure documentation</a>.
 
-2. From the **Machines** list select the DBServer and the Webserver that you want to Cutover, click **LAUNCH 2 TARGET MACHINE** button in the top right corner of the screen, then **Recovery Mode** and **CONTINUE** in the confirmation popup.
+2. From the **Machines** list select the DBServer and the Webserver that you want to Failover, click **LAUNCH 2 TARGET MACHINE** button in the top right corner of the screen, then **Recovery Mode** and **CONTINUE** in the confirmation popup.
 
     ![CE-Failover](/lab1/recovery_mode_launch.png?classes=shadow,border)
 
@@ -32,26 +32,29 @@ CloudEndure will, by default, removes any resources created during the test proc
     CloudEndure will now perform a final sync/snapshot on the volumes and begin the process of building new servers in the target infrastructure, all while maintaining data consistency. See the **Job Progress** screen for details.
 
 
-
     ![CE-job-progress](/lab1/job_progress.PNG?classes=shadow,border)
 
-    Monitor the **Job Progress** log until you see **Finished starting converters** message (it should take 3-5 minutes). In the meantime you can review <a href="https://docs.cloudendure.com/#Configuring_and_Running_Disaster_Recovery/Performing_a_Disaster_Recovery_Failover/Performing_a_Disaster_Recovery_Failover.htm#Performing_a_Disaster_Recovery_Failover_and_Failback%3FTocPath%3DNavigation%7CConfiguring%2520and%2520Running%2520Disaster%2520Recovery%7CPerforming%2520a%2520Disaster%2520Recovery%2520Failover%2520and%2520Failback%7C_____0" target="_blank">CloudEndure Documentation  on the Failover process</a>.
+    Monitor the **Job Progress** log until you see **Finished starting converters** message (it should take 3-5 minutes). 
 
-    {{% notice tip %}}
-If you don't see your job in the **Job Progress** window, refresh the browser (F5) and make sure to scroll to the top of the drop-down list of CloudEndure jobs.
+    
+
+{{% notice tip %}}
+While the Job is progressing, please review the [Connectivity Requirements](https://docs.cloudendure.com/#Preparing_Your_Environments/Network_Requirements/Network_Requirements.htm) for CloudEndure DisasterRecovery solution.
 {{% /notice %}}
 
 1. Review resources created by CloudEndure in your AWS account
    
-    Switch back to the **AWS Console** and navigate to your target AWS region if needed (eu-west-1/Ireland).
+    Switch back to the [AWS Console](https://eu-west-1.console.aws.amazon.com/ec2/v2/home?region=eu-west-1#Instances:).
    
     You will see two additional instances managed by CloudEndure:
-    - **CloudEndure Machine Converter** - used for conversion of the source boot volume, making AWS-specific bootloader changes, injecting hypervisor drivers and installing cloud tools. It's running for couple of minutes per each Test or cutover.
+    - **CloudEndure Machine Converter** - used for conversion of the source boot volume, making AWS-specific bootloader changes, injecting hypervisor drivers and installing cloud tools. It's running for couple of minutes per each Test or Failover.
     - **CloudEndure Replication Server** - used to receive encrypted data from agents installed in the source environment. It's running when the replication of data is taking place.
 
     Both types of instances are fully managed by CloudEndure and are NOT accessible by users.
 
-    As soon as the failover is finished, you will see 2 new EC2 instance on the list - this is your target Webserver and DB Servers created by CloudEndure. Make a note of its public and private IPs, as you will need them in the next step.
+    As soon as the failover is finished, you will see 2 new EC2 instance on [AWS Console](https://eu-west-1.console.aws.amazon.com/ec2/v2/home?region=eu-west-1#Instances:) - this is your target Webserver and DB Servers created by CloudEndure. 
+    Make a note of Webserver's public and Database server's private IPs, as you will need them in the next step.
+
     ![Launched Instances](/lab1/launched_instances.png?classes=shadow,border)
 
     5. Select the webserver and copy its public DNS/IP and paste it in browser. It shall show the PHP landing page.
@@ -60,6 +63,6 @@ If you don't see your job in the **Job Progress** window, refresh the browser (F
 
     This will confirm that, our test of the DR site is successful. Congratulations! You have set up your DR environment to AWS using CloudEndure.
 
-    {{% notice tip %}}
-If you want to know more about those servers, their purpose and network requirements see <a href="https://docs.cloudendure.com/#Preparing_Your_Environments/Network_Requirements/Network_Requirements.htm" target="_blank">CloudEndure Documentation</a>.
+{{% notice info %}}
+Please note that in an actual DR, after the failover completes, additional manual steps are needed to change the website’s DNS entry to point to the IP address of the failed over webserver. However, since CloudEndure operations can be invoked via API, this process can be fully automated. For more information on this topic, please refer this [blog post](https://aws.amazon.com/blogs/architecture/automated-disaster-recovery-using-cloudendure/).  
 {{% /notice %}}

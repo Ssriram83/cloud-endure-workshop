@@ -26,7 +26,7 @@ Each of these potential disasters will also have a geographical impact that can 
 
 #### Recovery Point Objectives (RPO)
 
-*Recovery Point Objective (RPO)* is the maximum acceptable amount of time since the last data recovery point. This objective determines what is considered an acceptable loss of data between the last recovery point and the interruption of service and is defined by the organization.
+**Recovery Point Objective (RPO)** is the maximum acceptable amount of time since the last data recovery point. This objective determines what is considered an acceptable loss of data between the last recovery point and the interruption of service and is defined by the organization.
 
 #### Recovery Time Objective (RTO)
 
@@ -34,11 +34,11 @@ Each of these potential disasters will also have a geographical impact that can 
 
 #### Failover
 
-Failover refers to the process of cutting over workloads to the target infrastructure during a test or disaster.
+Failover refers to the process of recovering your workloads to the target infrastructure during a test or disaster.
 
 #### Failback
 
-Once you have recovered your primary site after a disaster and resolved any issues associated, you can transfer business operations back to the source Infrastructure. The actual steps for failback depend on the source infrastructure. In case your source environment is AWS or VMWare, the steps are fully orchestrated. If your source infrastructure is physical or other public cloud providers, a Failback client would be necessary.
+Once you have recovered your primary site after a disaster and resolved any issues associated, you can transfer business operations back to the source Infrastructure. The actual steps for Failback depend on the source infrastructure. In case your source environment is AWS or VMWare, the steps are fully orchestrated. If your source infrastructure is physical or other public cloud providers, a Failback client would be necessary.
 
 #### Disaster Recovery Options
 

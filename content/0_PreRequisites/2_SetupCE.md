@@ -5,8 +5,14 @@ weight = 2
 ----------------
 
 {{% notice info %}}
-In this section, we will register for “CloudEndure Disaster Recovery to AWS” service from the AWS Marketplace. This is needed to replicate machines to the AWS cloud from any Source platform, and add to them to the CloudEndure Disaster Recovery solution. To complete the registration process follow the steps below.
+In this section, we will register for “CloudEndure Disaster Recovery to AWS” service from the AWS Marketplace. This is needed to replicate machines to the AWS cloud from any Source platform, and add to them to the CloudEndure Disaster Recovery solution. 
 {{% /notice %}}
+
+
+{{% notice note %}}
+**Note for AWS staff** Please check this internal Quip document before scheduling any public events, and make sure your event is logged.
+{{% /notice %}}
+
 
 1. Sign in to the [AWS Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/console.html) as an IAM user with administrator privileges. 
 

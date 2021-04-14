@@ -57,15 +57,15 @@ Before proceeding **refresh the browser** to retrieve the latest information fro
 Here is a quick explanation of some of the important settings: 
 
 - **Source infrastructure** -  The source infrastructure, that you want to protect. This can be either of **Other Infrastructure**, **Specific AWS region** or 
-**vCenter appliance**
+**vCenter appliance**. In this lab, we will be using AWS region US East.
 
-- **Target Infrastructure** - Select the AWS region that will serve as the Target to which you want to replicate your data.
+- **Target Infrastructure** - Select the AWS region that will serve as the Target to which you want to replicate your data. In this lab, that will be EU (Ireland)
 
-- **Replication Servers** are small machines used to facilitate data replication. CloudEndure uses a t3.small instance type as the default. For every 15 disks in source infrastructure, a replication server will be used. You have an option to enable  
+- **Replication Servers** are small machines used to facilitate data replication. CloudEndure uses a t3.small instance type as the default. 
 
-- **Dedicated Replication Server**. This will dedicate a single Replication Server for each Source machine. 
+- **Dedicated Replication Server**. This will dedicate a single Replication Server for each Source machine. If you leave it unchecked then for every 15 disks in source infrastructure, a replication server will be created.  
 
-- **Converter instance** are server that converts the disks to boot and run in the Target infrastructure. 
+- **Converter instance** are servers that converts the disks to boot and run in the Target infrastructure. The default is m4/m5.large which should suit most of the situations. 
 
 {{% notice tip %}}
 For a more detailed list of options on replication settings - please refer the 
@@ -73,15 +73,4 @@ For a more detailed list of options on replication settings - please refer the
 
 {{% /notice %}}
 
-
-
 2. Scroll to the bottom of the screen and click **SAVE REPLICATION SETTINGS** button. The dialog window  **Project Setup Complete!** will appear.
-
-In this lab, we will be using linux machines and your instructions will look like this:
-
-![Instructions](/lab1/instructions.png?classes=shadow,border&height=250px)
-
-
-{{% notice tip %}}
-In case, you forget the instructions to install, Click on  **Machines > MACHINE ACTIONS > Add Machines**. This opens guidelines to install CloudEndure agent on your source instances.
-{{% /notice %}}

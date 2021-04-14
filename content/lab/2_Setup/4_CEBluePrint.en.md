@@ -31,9 +31,11 @@ In the CloudEndure console, select Machines from the left sidebar.
 
   Click **SAVE BLUEPRINT**
 
+Here's a quick explanation of  the above parameters. 
+
 - **Machine Type** – Select the type of Target machine from the dropdown menu. In this case, we have selected t3.small to match the source Webserver.
 - **Subnet** -  You can select an existing Subnet or create a new subnet. In this case, we have selected **Public Subnet** in the **Target VPC**
-- **Security groups** – Security Groups are connected to subnets. You can attach the security group that has **sgweb** in it. 
+- **Security groups** – Security Groups are connected to subnets. You can attach the security group that has **sgweb** in it.
 - **Disks** - Select the volume type for your Target disk. You can select Standard, SSD, or Provisioned SSD. In this case, we have selected SSD to match the source server. 
 
 ![Webserver-BluePrints](/lab1/webserver.png?classes=shadow,border)
@@ -41,7 +43,7 @@ In the CloudEndure console, select Machines from the left sidebar.
 #### Sep 2: Configure DB Server Blueprint
 
 In the CloudEndure console, select Machines from the left sidebar. 
-1. Select the the server named dbserver. This opens the details page to configure the machine blueprint with target instance options. 
+1. Select the the server named **DBserver**. This opens the details page to configure the machine blueprint with target instance options. 
 2. Fill the details as below 
 
 | Parameter                                  | Value                                                        |
