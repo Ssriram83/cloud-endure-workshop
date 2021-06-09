@@ -15,7 +15,7 @@ The private key file is automatically downloaded by your browser. Save the priva
 
 #### Step2: Prepare the Simulated Source Environment
 
-To create the source infrastructure, Click {{% button href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=TargetVPC&region=eu-west-1&templateURL=https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=source-simulated&templateURL=https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml" icon="fas fa-rocket" %}}Launch Source Environment{{% /button %}}
+To create the source infrastructure, Click {{% button href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=TargetVPC&region=eu-west-1&templateURL=https://marketplace-sa-resources.s3.amazonaws.com/ctlabs/migration/LAMP2TierApp.yml&stackName=source-simulated" icon="fas fa-rocket" %}}Launch Source Environment{{% /button %}}
 
 In the console, enter the following Parameters to create the stack:
 

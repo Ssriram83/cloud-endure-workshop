@@ -7,7 +7,7 @@ title="About this Workshop"
 
 #### Note for AWS staff
 
-Please check this internal Quip document before scheduling any public events, and make sure your event is logged.
+Please check this internal Quip document [PLACEHOLDER To be updated] before scheduling any public events, and make sure your event is logged.
 
 #### Submitting feedback or suggestions for improvement
 
